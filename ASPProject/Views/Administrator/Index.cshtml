@@ -1,0 +1,73 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administrator</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Administrator</h1>
+    <button onclick="location.href='@Url.Action("Add", "Administrator")'">Add</button>
+    <form asp-controller="Catalog" asp-action="Index">
+        <label for="category">Select Category:</label>
+        <select name="category" id="category">
+            <option value="All">All</option>
+            <option value="Birds">Birds</option>
+            <option value="Mammals">Mammal</option>
+            <option value="Fishes">Aquatic</option>
+        </select>
+        <input type="submit" value="Filter">
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @foreach (var animal in Model)
+                {
+                <tr>
+                    <td>
+                        <img src="~/Photos/@animal.PictureName" alt="@animal.Name" />
+                    </td>
+                    <td>@animal.Name</td>
+                    <td>@animal.Age</td>
+                    <td>@animal.Description</td>
+                    <td>@animal.Category.Name</td>
+                <td>
+                        <a href="@Url.Action("Edit","Administrator", new {id = animal.AnimalId})">Edit</a>
+                        <a href="@Url.Action("Delete","Administrator", new {id = animal.AnimalId})">Delete</a>
+                </td>
+                </tr>
+                }
+
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

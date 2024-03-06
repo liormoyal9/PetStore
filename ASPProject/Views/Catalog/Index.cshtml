@@ -1,0 +1,71 @@
+﻿@model IEnumerable<ASPProject.Models.Animal>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    table {
+        border-collapse: collapse;
+     }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+</style>
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Catalog</title>
+</head>
+<body>
+    <h1>Catalog</h1>
+
+    <form asp-controller="Catalog" asp-action="Index">
+        <label for="category">Select Category:</label>
+        <select name="category" id="category">
+            <option value="All">All</option>
+            <option value="Birds">Birds</option>
+            <option value="Mammals">Mammal</option>
+            <option value="Fishes">Aquatic</option>
+        </select>
+        <input type="submit" value="Filter">
+    </form>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>image</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var animal in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="~/Photos/@animal.PictureName" alt="@animal.Name" />
+                    </td>
+                    <td>@animal.Name</td>
+                    <td>@animal.Category.Name</td>
+                    <td>
+                        <a href="/Catalog/Details/@animal.AnimalId">Details</a> 
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

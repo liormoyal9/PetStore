@@ -1,0 +1,46 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var errors = ViewBag.errors;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Add</title>
+</head>
+<body>
+    <h1>Add New Animal</h1>
+    @using (Html.BeginForm("Add", "Administrator", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        
+    <label for="animalName">Name:</label>
+        <input type="text"  name="Name" required />
+
+        <label for="animalAge">Age:</label>
+        <input type="number"  name="Age" required />
+
+        <label for="animalDescription">Description:</label>
+        <textarea  name="Description" required></textarea>
+
+         <label for="category">Select Category:</label>
+        <select name="category" id="category">
+            <option value="1">Birds</option>
+            <option value="2">Mammal</option>
+            <option value="3">Aquatic</option>
+        </select>
+        <label for="Photo">Photo:</label>
+        <input type="file" accept="image/*" name="Photo" required />
+
+        <button type="submit">Save</button>
+    }
+    @if (errors != null)
+    {
+        <p style="color: red;">@errors</p>
+    }
+
+</body>
+</html>
+

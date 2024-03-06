@@ -1,0 +1,69 @@
+﻿@model ASPProject.Models.Animal
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid /* #ddd */;
+        padding: 8px;
+        text-align: center;
+    }
+
+    th {
+        background-color: lightsteelblue;
+    }
+
+</style>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <h1>Animal Details</h1>
+
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <td>@Model.Name</td>
+        </tr>
+        <tr>
+            <th>Category</th>
+            <td>@Model.Category.Name</td>
+        </tr>
+        <tr>
+            <th>Age</th>
+            <td>@Model.Age</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>@Model.Description</td>
+        </tr>
+        <tr>
+            <th>Image</th>
+            <td>
+                <img src="~/Photos/@Model.PictureName" alt="@Model.Name" />
+            </td>
+        </tr>
+    </table>
+    <h2>Comments</h2>
+    @foreach (var comment in Model.Comments)
+    {
+        <p>@comment.Text</p>
+    }
+    @using (Html.BeginForm("AddComment", "Catalog"))
+    {
+        @Html.HiddenFor(model=>model.AnimalId)
+        <textarea name="commentText" required></textarea>
+        <button type="submit">Add Comment</button>
+    }
+    
+</body>
+</html>

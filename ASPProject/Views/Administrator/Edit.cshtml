@@ -1,0 +1,91 @@
+﻿@model ASPProject.Models.Animal
+@{
+    ViewData["Title"] = "Edit";
+    var errors = ViewBag.errors;
+}
+
+<style>
+    body {
+        text-align: center; /* Center the content horizontally */
+    }
+
+    h1 {
+        margin-top: 20px; /* Add some top margin to the title for spacing */
+    }
+
+    table {
+        border-collapse: collapse;
+        width: auto; /* Allow the table to adjust based on content */
+        margin: 20px auto; /* Center the table on the page */
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    img {
+        max-width: 100px;
+        max-height: 100px;
+    }
+</style>
+
+<h1>Edit</h1>
+
+<table>
+    @using (Html.BeginForm("Edit", "Administrator", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <tr>
+            <td>
+                @Html.HiddenFor(model => model.AnimalId)
+                <label for="animalName">Name:</label>
+                <input type="text" value="@Model.Name" name="Name" required />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="animalAge">Age:</label>
+                <input type="number" value="@Model.Age" name="Age" required />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="animalDescription">Description:</label>
+                <textarea name="Description" required>@Model.Description</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="animalCategory">Category:</label>
+                <label for="category">Select Category:</label>
+                <select name="category" value="@Model.CategoryId" id="category">
+                    <option value="1">Birds</option>
+                    <option value="2">Mammal</option>
+                    <option value="3">Aquatic</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="Photo">Photo:</label>
+                <input type="file" accept="image/*" name="Photo" />
+                <img src="~/Photos/@Model.PictureName" style="height: auto; width:200px" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">Save</button>
+            </td>
+        </tr>
+    }
+</table>
+
+@if (errors != null)
+{
+    <p style="color: red;">@errors</p>
+}

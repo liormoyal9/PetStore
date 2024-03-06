@@ -1,0 +1,56 @@
+﻿@model List<ASPProject.Models.Animal>
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    img {
+        max-width: 100px;
+        max-height: 100px;
+    }
+</style>
+
+<h1>Top Animals with Most Reviews</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Animal Name</th>
+            <th>Age</th>
+            <th>Number of Reviews</th>
+            <th>Animal Photo</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var animal in Model)
+        {
+            <tr>
+                <td>@animal.Name</td>
+                <td>@animal.Age</td>
+                <td>@animal.Comments.Count</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(animal.PictureName))
+                    {
+                        <img src="~/Photos/@animal.PictureName" alt="@animal.Name" />
+                    }
+                    else
+                    {
+                        <span>No Photo</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
